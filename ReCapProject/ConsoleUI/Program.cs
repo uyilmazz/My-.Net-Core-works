@@ -22,10 +22,14 @@ namespace ConsoleUI
             //});
 
 
-            foreach (var car in carService.GetAll())
+            foreach (var car in carService.GetCarDetailDtos())
             {
-                Console.WriteLine(car.Description);
+                Console.WriteLine("Car Name : {0} BrandName : {1} ColorName {2} DailyPrice : {3}", car.Carname, car.BrandName, car.ColorName, car.DailyPrice);
             }
+            //foreach (var car in carService.GetAll())
+            //{
+            //    Console.WriteLine(car.Name);
+            //}
         }
     }
 }
