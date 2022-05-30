@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants.Message;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -17,47 +19,108 @@ namespace Business.Concrete
 
         public CarService(ICarDal carDal)
         {
+
             _carDal = carDal;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
-            _carDal.Add(car);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult(MessageText.ErrorMessage);
+            }
+            else
+            {
+                _carDal.Add(car);
+                return new SuccessResult( MessageText.SuccessMessage);
+            }
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
-            _carDal.Delete(car);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult(MessageText.ErrorMessage);
+            }
+            else
+            {
+                _carDal.Delete(car);
+                return new SuccessResult(MessageText.SuccessMessage);
+            }
         }
 
-        public Car Get(int id)
+        public IDataResult<Car> Get(int id)
         {
-            return _carDal.Get(c => c.Id == id);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<Car>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == id), MessageText.SuccessMessage);
+            }
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
-            return _carDal.GetAll();
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Car>>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(), MessageText.SuccessMessage);
+            }
         }
 
-        public List<CarDetailDto> GetCarDetailDtos()
+        public IDataResult<List<CarDetailDto>> GetCarDetailDtos()
         {
-            return _carDal.GetCarDetailDtos();
+            if (DateTime.Now.Hour == 23)
+            {
+                return new ErrorDataResult<List<CarDetailDto>>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDtos(), MessageText.SuccessMessage);
+            }
+   
         }
 
-        public List<Car> GetCarsByBrandId(int brandId)
+        public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return _carDal.GetAll(c => c.BrandId == brandId);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Car>>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.BrandId == brandId), MessageText.SuccessMessage);
+            }
         }
 
-        public List<Car> GetCarsByColorId(int colorId)
+        public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return _carDal.GetAll(c => c.ColorId == colorId);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Car>>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.Id == colorId), MessageText.SuccessMessage);
+            }
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
-            _carDal.Update(car);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult(MessageText.ErrorMessage);
+            }
+            else
+            {
+                _carDal.Update(car);
+                return new SuccessResult(MessageText.SuccessMessage);
+            }
         }
     }
 }

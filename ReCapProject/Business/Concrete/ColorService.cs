@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants.Message;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using System;
@@ -18,29 +20,67 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color color)
+        public IResult Add(Color color)
         {
-            _colorDal.Add(color);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult(MessageText.ErrorMessage);
+            }
+            else
+            {
+                _colorDal.Add(color);
+                return new SuccessResult(MessageText.SuccessMessage);
+            }
         }
 
-        public void Delete(Color color)
+        public IResult Delete(Color color)
         {
-            _colorDal.Delete(color);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult(MessageText.ErrorMessage);
+            }
+            else
+            {
+                _colorDal.Delete(color);
+                return new SuccessResult(MessageText.SuccessMessage);
+            }
         }
 
-        public Color Get(int id)
+        public IDataResult<Color> Get(int id)
         {
-            return _colorDal.Get(c => c.Id == id);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<Color>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<Color>(_colorDal.Get(c => c.Id == id) ,MessageText.SuccessMessage);
+            }
         }
 
-        public List<Color> GetAll()
+        public IDataResult<List<Color>> GetAll()
         {
-            return _colorDal.GetAll();
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorDataResult<List<Color>>(MessageText.ErrorMessage);
+            }
+            else
+            {
+                return new SuccessDataResult<List<Color>>(_colorDal.GetAll() ,MessageText.SuccessMessage);
+            }
         }
 
-        public void Update(Color color)
+        public IResult Update(Color color)
         {
-             _colorDal.Update(color);
+            if (DateTime.Now.Hour == 22)
+            {
+                return new ErrorResult(MessageText.ErrorMessage);
+            }
+            else
+            {
+                _colorDal.Update(color);
+                return new SuccessResult(MessageText.SuccessMessage);
+            }
         }
     }
 }
