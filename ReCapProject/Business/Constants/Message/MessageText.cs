@@ -11,5 +11,6 @@ namespace Business.Constants.Message
         public static string SuccessMessage = "Success Message";
         public static string ErrorMessage = "Error Message";
         public static string ReturnRentalError = "The car has not yet been delivered.";
+        public static string CarImageCountLimitError = "Car image count cannot be more 5";
     }
 }
