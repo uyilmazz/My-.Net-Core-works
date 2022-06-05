@@ -5,6 +5,7 @@ using Business.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Helpers;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using System;
@@ -29,10 +30,12 @@ namespace Business.DependencyResolves.Autofac
             builder.RegisterType<EfCustomerDal>().As<ICustomerDal>().SingleInstance();
             builder.RegisterType<RentalService>().As<IRentalService>().SingleInstance();
             builder.RegisterType<EfRentalDal>().As<IRentalDal>().SingleInstance();
-            builder.RegisterType<UserService>().As<IUserService>().SingleInstance();
-            builder.RegisterType<EfUserdal>().As<IUserDal>().SingleInstance();
+            builder.RegisterType<UserService>().As<IUserService>();
+            builder.RegisterType<EfUserdal>().As<IUserDal>();
             builder.RegisterType<CarImageService>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+            builder.RegisterType<AuthService>().As<IAuthService>();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 
             builder.RegisterType<FileHeplerManager>();
 
