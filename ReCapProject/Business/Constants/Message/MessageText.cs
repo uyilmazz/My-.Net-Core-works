@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,5 +23,6 @@ namespace Business.Constants.Message
         public static string AccessTokenCreated = "Token created successfully";
         public static string UserRegistered = "User registered successfully";
         public static string UserAlreadyExists = "User Already Exists";
+        public static string AuthorizationDenied = "You are not authorized";
     }
 }
