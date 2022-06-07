@@ -27,6 +27,17 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("customerDtos")]
+        public IActionResult GetAllCustomerDtos()
+        {
+            var result = _customerService.GetAllCustomerDto();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
         [HttpGet("id")]
         public IActionResult GetById(int id)
         {

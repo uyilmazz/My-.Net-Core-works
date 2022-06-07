@@ -3,6 +3,7 @@ using Business.Constants.Message;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,6 +46,16 @@ namespace Business.Concrete
         public IDataResult<List<Rental>> GetAll()
         {
             return new SuccessDataResult<List<Rental>>(MessageText.SuccessMessage);
+        }
+
+        public IDataResult<List<RentalDto>> GetAllRentalDtos()
+        {
+            var result = _rentalDal.GetAllRentalDtos();
+            if(result is not null)
+            {
+                return new SuccessDataResult<List<RentalDto>>(result,MessageText.SuccessMessage);
+            }
+            return new ErrorDataResult<List<RentalDto>>(result, MessageText.ErrorMessage);
         }
 
         public IDataResult<Rental> GetById(int id)
