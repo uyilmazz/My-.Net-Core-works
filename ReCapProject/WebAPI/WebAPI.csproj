@@ -5,6 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Uploads\Images\4e26f68e-b885-4a91-b515-6c33457e2407.png" />
+    <None Include="wwwroot\Uploads\Images\d0651276-5249-44e5-ba8c-220309d318d1.png" />
+    <None Include="wwwroot\Uploads\Images\default.png" />
+    <None Include="wwwroot\Uploads\Images\f806bced-792d-4840-addb-8a1c682ec07b.png" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
   </ItemGroup>

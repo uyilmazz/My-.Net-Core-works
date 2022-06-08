@@ -8,7 +8,7 @@ namespace Business.Constants
 {
     public class ProjectConstant
     {
-        public static string ImagePath = "public\\Uploads\\Images\\";
+        public static string ImagePath = "wwwroot\\Uploads\\Images\\";
         public static string DefaultImage = "default.png";
     }
 }

@@ -63,7 +63,7 @@ namespace Business.Concrete
         {
             // Must refactor
             var result = _carImageDal.GetAll(ci => ci.CarId == carId);
-            if (result.Count == 0) result.Add(new CarImage { ImagePath = ProjectConstant.ImagePath + ProjectConstant.DefaultImage });
+            if (result.Count == 0) result.Add(new CarImage { ImagePath = ProjectConstant.DefaultImage });
             return new SuccessDataResult<List<CarImage>>(result);
         }
 
