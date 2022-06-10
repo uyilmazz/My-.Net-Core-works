@@ -79,7 +79,7 @@ namespace Business.Concrete
 
         public IDataResult<List<CarDetailDto>> GetCarDetailDtosByColorId(int colorId)
         {
-            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDtosByBrandId(colorId), MessageText.SuccessMessage);
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetailDtosByColorId(colorId), MessageText.SuccessMessage);
         }
 
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
@@ -94,6 +94,23 @@ namespace Business.Concrete
             
                 return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.Id == colorId), MessageText.SuccessMessage);
             
+        }
+
+        public IDataResult<List<CarDetailDto>> GetFilteredCars(int? colorId, int? brandId)
+        {
+            if(colorId == null && brandId == null)
+            {
+                return GetCarDetailDtos();
+            }
+            else if(colorId == null && brandId != null)
+            {
+                return GetCarDetailDtosByBrandId((int)brandId);
+            }
+            else if(brandId == null && colorId != null)
+            {
+                return GetCarDetailDtosByColorId((int)colorId);
+            }
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetFilteredCarDetailDtos((int)colorId, (int)brandId), MessageText.SuccessMessage);
         }
 
         [CacheRemoveAspect("ICarService.Get")]
