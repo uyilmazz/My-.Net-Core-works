@@ -49,6 +49,13 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
+        [HttpGet("isrentable")]
+        public IActionResult GetIsRentable(int id)
+        {
+            var result = _rentalService.isRentable(id);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult Add([FromBody] Rental rental)
         {

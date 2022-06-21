@@ -63,6 +63,18 @@ namespace Business.Concrete
             return new SuccessDataResult<Rental>(_rentalDal.Get(r => r.Id == id));
         }
 
+        public IDataResult<bool> isRentable(int id)
+        {
+            Rental rentalDto = _rentalDal.Get(r => r.Id == id && r.ReturnDate == null);
+            if (rentalDto is not null)
+            {
+                return new SuccessDataResult<bool>(false);
+            }
+            return new SuccessDataResult<bool>(true);
+        }
+
+       
+
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
