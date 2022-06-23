@@ -15,10 +15,16 @@ namespace Business.Concrete
     public class RentalService : IRentalService
     {
         IRentalDal _rentalDal;
+        ICrediCardService _crediCardService;
+        IPaymentService _paymentService;
+        ICarService _carService;
 
-        public RentalService(IRentalDal rentalDal)
+        public RentalService(IRentalDal rentalDal, ICrediCardService crediCardService, IPaymentService paymentService, ICarService carService)
         {
             _rentalDal = rentalDal;
+            _crediCardService = crediCardService;
+            _paymentService = paymentService;
+            _carService = carService;
         }
 
         public IResult Add(Rental rental)
@@ -73,7 +79,37 @@ namespace Business.Concrete
             return new SuccessDataResult<bool>(true);
         }
 
-       
+        public IResult Rent(RentPaymentRequest rentPaymentRequest)
+        {
+            var result = _crediCardService.GetCrediCardDtoByCrediCard(rentPaymentRequest.CrediCard);
+            if (result.Success)
+            {
+                if(result.Data.Balance > rentPaymentRequest.Amount)
+                {
+                    _crediCardService.DraftMoney(result.Data.Id,rentPaymentRequest.Amount);
+                    
+                    foreach(var rental in rentPaymentRequest.Rentals)
+                    {
+                        var periodDay = Convert.ToInt32(((DateTime)rental.ReturnDate - rental.RentDate).TotalDays);
+                        var currentCar = _carService.Get(rental.CarId).Data;
+                        if(currentCar is null)
+                            return new ErrorResult(MessageText.ErrorDuringRental);
+                        
+                        var amount = periodDay * currentCar.DailyPrice;
+                        _paymentService.Add(new Payment {CarId = rental.CarId,RentDate = rental.RentDate,ReturnDate = (DateTime)rental.ReturnDate,
+                            CardId = result.Data.Id,CustomerId = rentPaymentRequest.CustomerId,
+                            Amount = amount});
+                        rental.ReturnDate = null;
+                        _rentalDal.Add(rental);
+                    }
+
+                    return new SuccessResult(MessageText.PaymentSuccessfull);
+
+                }
+                return new ErrorResult(MessageText.InsufficientBalance);
+            }
+            return new ErrorResult(MessageText.CrediCardNotFound);
+        }
 
         public IResult Update(Rental rental)
         {

@@ -24,5 +24,18 @@ namespace Business.Constants.Message
         public static string UserRegistered = "User registered successfully";
         public static string UserAlreadyExists = "User Already Exists";
         public static string AuthorizationDenied = "You are not authorized";
+
+        public static string MoneyAddedSuccess = "Money added successfully";
+        public static string CrediCardNotFound = "CrediCard not Found!";
+        public static string InsufficientBalance = "Insufficient balance!";
+        public static string PaymentSuccessfull = "Payment Successful";
+
+        public static string ErrorDuringRental = "An error occurred during the rental!";
+
+
+
+
+
+
     }
 }

@@ -34,6 +34,12 @@ namespace Business.DependencyResolves.Autofac
             builder.RegisterType<EfUserdal>().As<IUserDal>();
             builder.RegisterType<CarImageService>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EfCarImageDal>().As<ICarImageDal>().SingleInstance();
+            builder.RegisterType<CrediCardService>().As<ICrediCardService>().SingleInstance();
+            builder.RegisterType<EfCrediCardDal>().As<ICrediCardDal>().SingleInstance();
+
+            builder.RegisterType<PaymentService>().As<IPaymentService>().SingleInstance();
+            builder.RegisterType<EfPaymentDal>().As<IPaymentDal>().SingleInstance();
+
             builder.RegisterType<AuthService>().As<IAuthService>();
             builder.RegisterType<JwtHelper>().As<ITokenHelper>();
 

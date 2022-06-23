@@ -44,9 +44,9 @@ namespace ConsoleUI
 
         private static void AddRental()
         {
-            RentalService rentalService = new RentalService(new EfRentalDal());
-            var result = rentalService.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = DateTime.Now });
-            Console.WriteLine(result.Message);
+            //RentalService rentalService = new RentalService(new EfRentalDal());
+            //var result = rentalService.Add(new Rental { CarId = 2, CustomerId = 2, RentDate = DateTime.Now });
+            //Console.WriteLine(result.Message);
         }
 
         private static void AddCustomer(Customer customer)

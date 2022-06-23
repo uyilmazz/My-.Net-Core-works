@@ -20,5 +20,7 @@ namespace Business.Abstract
         IResult Delete(Rental rental);
         IResult Update(Rental rental);
 
+        IResult Rent(RentPaymentRequest rentPaymentRequest);
+
     }
 }
