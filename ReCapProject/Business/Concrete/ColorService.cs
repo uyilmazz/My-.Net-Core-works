@@ -22,7 +22,12 @@ namespace Business.Concrete
 
         public IResult Add(Color color)
         {
-            
+
+            var result = _colorDal.Get(c => c.Name == color.Name);
+            if(result is not null)
+            {
+                return new ErrorResult(color.Name + " " + MessageText.AlreadyExists);
+            }
                 _colorDal.Add(color);
                 return new SuccessResult(MessageText.SuccessMessage);
             
@@ -52,9 +57,13 @@ namespace Business.Concrete
 
         public IResult Update(Color color)
         {
-            
-                _colorDal.Update(color);
-                return new SuccessResult(MessageText.SuccessMessage);
+            var result = _colorDal.Get(c => c.Name == color.Name);
+            if(result is not null)
+            {
+                return new ErrorResult(color.Name + " " + MessageText.AlreadyExists);
+            }
+            _colorDal.Update(color);
+             return new SuccessResult(MessageText.SuccessMessage);
             
         }
     }

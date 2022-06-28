@@ -31,6 +31,7 @@ namespace Business.Constants.Message
         public static string PaymentSuccessfull = "Payment Successful";
 
         public static string ErrorDuringRental = "An error occurred during the rental!";
+        public static string AlreadyExists = "already exists!";
 
 
 

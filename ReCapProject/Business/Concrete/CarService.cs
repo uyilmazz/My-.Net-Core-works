@@ -113,12 +113,17 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetFilteredCarDetailDtos((int)colorId, (int)brandId), MessageText.SuccessMessage);
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
-            
-                _carDal.Update(car);
-                return new SuccessResult(MessageText.SuccessMessage);
+            var result = _carDal.Get(c => c.Name.ToLower() == car.Name.ToLower());
+            if(result is not null)
+            {
+                return new ErrorResult( car.Name + " "+ MessageText.AlreadyExists);
+            }
+            _carDal.Update(car);
+            return new SuccessResult(MessageText.SuccessMessage);
             
         }
     }

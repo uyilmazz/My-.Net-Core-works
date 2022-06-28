@@ -22,9 +22,13 @@ namespace Business.Concrete
 
         public IResult Add(Brand brand)
         {
-           
-                _brandDal.Add(brand);
-                return new SuccessResult(MessageText.SuccessMessage);
+            var result = _brandDal.Get(b => b.Name == brand.Name);
+            if(result is not null)
+            {
+                return new ErrorResult(brand.Name + " " + MessageText.AlreadyExists);
+            }
+            _brandDal.Add(brand);
+            return new SuccessResult(MessageText.SuccessMessage);
             
            
         }
@@ -57,8 +61,12 @@ namespace Business.Concrete
 
         public IResult Update(Brand brand)
         {
-            
-            
+
+            var result = _brandDal.Get(b => b.Name == brand.Name);
+            if(result is not null)
+            {
+                return new ErrorResult(brand.Name + " " + MessageText.AlreadyExists);
+            }
                 _brandDal.Update(brand);
                 return new SuccessResult( MessageText.SuccessMessage);
             
