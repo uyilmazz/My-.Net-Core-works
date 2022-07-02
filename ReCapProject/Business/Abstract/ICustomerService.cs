@@ -14,6 +14,7 @@ namespace Business.Abstract
         IDataResult<List<Customer>> GetAll();
         IDataResult<List<CustomerDto>> GetAllCustomerDto();
         IDataResult<Customer> GetById(int id);
+        IDataResult<CustomerUserDto> GetByEmail(string email);
         IResult Add(Customer customer);
         IResult Delete(Customer customer);
         IResult Update(Customer customer);

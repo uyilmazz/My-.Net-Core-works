@@ -37,9 +37,7 @@ namespace Business.Concrete
         {
             
                 _brandDal.Delete(brand);
-                return new SuccessResult(MessageText.SuccessMessage);
-            
-            
+                return new SuccessResult(MessageText.SuccessMessage);    
         }
 
         public IDataResult<Brand> Get(int id)

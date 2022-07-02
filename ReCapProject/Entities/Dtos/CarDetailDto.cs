@@ -14,6 +14,7 @@ namespace Entities.Dtos
         public string ColorName { get; set; }
         public string BrandName { get; set; }
         public int ModelYear { get; set; }
+        public int FindexScore { get; set; }
         public string Description { get; set; }
         public double DailyPrice { get; set; }
     }

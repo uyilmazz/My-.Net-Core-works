@@ -12,5 +12,6 @@ namespace Entities.Dtos
         public int Id { get; set; }
         public string CustomerName { get; set; }
         public string CompanyName { get; set; }
+        public int FindexScore { get; set; }
     }
 }

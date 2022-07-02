@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Constants.Message;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -21,6 +23,7 @@ namespace Business.Concrete
             _customerDal = customerDal;
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Add(Customer customer)
         {
             _customerDal.Add(customer);
@@ -43,11 +46,22 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CustomerDto>>(_customerDal.GetAllCustomerDtos(), MessageText.SuccessMessage);
         }
 
+        public IDataResult<CustomerUserDto> GetByEmail(string email)
+        {
+            var result = _customerDal.GetByEmail(email);
+            if(result is null)
+            {
+                return new ErrorDataResult<CustomerUserDto>(MessageText.UserNotFound);
+            }
+            return new SuccessDataResult<CustomerUserDto>(result);
+        }
+
         public IDataResult<Customer> GetById(int id)
         {
             return new SuccessDataResult<Customer>(_customerDal.Get(c => c.Id == id));
         }
 
+        [ValidationAspect(typeof(CustomerValidator))]
         public IResult Update(Customer customer)
         {
             _customerDal.Update(customer);

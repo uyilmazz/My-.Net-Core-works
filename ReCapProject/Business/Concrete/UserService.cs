@@ -3,6 +3,7 @@ using Business.Constants.Message;
 using Core.Entities.Concrete;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using Entities.Dtos;
 using System.Collections.Generic;
 
 namespace Business.Concrete
@@ -31,6 +32,23 @@ namespace Business.Concrete
         public IDataResult<List<User>> GetAll()
         {
             return new SuccessDataResult<List<User>>(_userDal.GetAll(), MessageText.SuccessMessage);
+        }
+
+        public IDataResult<CustomerUserDto> GetByEmail(string email)
+        {
+            var result = _userDal.Get(u => u.Email == email);
+            if(result is null)
+            {
+                return new ErrorDataResult<CustomerUserDto>(MessageText.UserNotFound);
+            }
+            var userDetailDto = new CustomerUserDto
+            {
+                Email = result.Email,
+                FirstName = result.FirstName,
+                LastName = result.LastName,
+                Id = result.Id
+            };
+            return new SuccessDataResult<CustomerUserDto>(userDetailDto);
         }
 
         public IDataResult<User> GetById(int id)

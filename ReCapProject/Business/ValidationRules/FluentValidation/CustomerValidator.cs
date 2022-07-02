@@ -14,6 +14,9 @@ namespace Business.ValidationRules.FluentValidation
         {
             RuleFor(c => c.UserId).NotEmpty();
             RuleFor(c => c.UserId).GreaterThan(0);
+            RuleFor(c => c.FindexScore).GreaterThan(0);
+            RuleFor(c => c.FindexScore).LessThan(1900);
+           
         }
     }
 }

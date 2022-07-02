@@ -28,9 +28,9 @@ namespace WebAPI.Controllers
             var tokenResult = _authService.CreateAccessToken(loginResult.Data);
             if (!tokenResult.Success)
             {
-                return BadRequest(tokenResult.Message);
+                return BadRequest(tokenResult);
             }
-            return Ok(tokenResult.Data);
+            return Ok(tokenResult);
         }
 
         [HttpPost("Register")]
@@ -44,8 +44,8 @@ namespace WebAPI.Controllers
             var registerResult = _authService.Register(userForRegisterDto);
             var tokenResult = _authService.CreateAccessToken(registerResult.Data);
             if (!tokenResult.Success)
-                return BadRequest(tokenResult.Message);
-            return Ok(registerResult.Data);
+                return BadRequest(tokenResult);
+            return Ok(tokenResult);
         }
     }
 }

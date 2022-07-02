@@ -68,7 +68,7 @@ namespace DataAccess.Concrete.EntityFramework
                                     join c in context.Colors
                                     on ca.ColorId equals c.Id
                                     where ca.Id == carId
-                                    select new CarDetailDto { Id = ca.Id, CarName = ca.Name, BrandName = b.Name, ColorName = c.Name, DailyPrice = ca.DailyPrice, Description = ca.Description, ModelYear = ca.ModelYear };
+                                    select new CarDetailDto { Id = ca.Id, CarName = ca.Name, BrandName = b.Name, ColorName = c.Name, DailyPrice = ca.DailyPrice, Description = ca.Description, ModelYear = ca.ModelYear,FindexScore = ca.FindexScore };
                 return carDetailDto.SingleOrDefault();
             }
         }

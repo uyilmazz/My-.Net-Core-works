@@ -10,6 +10,7 @@ namespace Entities.Concrete
         public int ColorId { get; set; }
         public string Name { get; set; }    
         public int ModelYear { get; set; }
+        public int FindexScore { get; set; }
         public double DailyPrice { get; set; }
         public string Description { get; set; }
     }

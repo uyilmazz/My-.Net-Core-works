@@ -27,5 +27,25 @@ namespace DataAccess.Concrete.EntityFramework
                 return carDetailDtos.ToList();
             }
         }
+
+        public CustomerUserDto GetByEmail(string email)
+        {
+            using(ReCapContext context = new ReCapContext())
+            {
+                var customerUserDto = from c in context.Customers
+                                      join u in context.Users
+                                      on c.UserId equals u.Id
+                                      where u.Email == email
+                                      select new CustomerUserDto { 
+                                      CompanyName = c.CompanyName,
+                                      Email = u.Email,
+                                      FirstName = u.FirstName,
+                                      LastName = u.LastName,
+                                      Id = u.Id,
+                                      FindexScore = c.FindexScore
+                                      };
+                return customerUserDto.SingleOrDefault();
+            }
+        }
     }
 }
